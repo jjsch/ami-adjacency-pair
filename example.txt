@@ -7,7 +7,7 @@ getCorpus takes a root directory and a list of files. By default, it searches fo
 
 In this example we open the file ES2002a.csv in the current working directory.
 
-Maybe we are interested in the turn around the 270ths utterance in the corpus:
+Maybe we are interested in the turn around the 270th utterance in the corpus:
 
 >>> amitools.findTurn(c,270)
 (269, 273, 4)
