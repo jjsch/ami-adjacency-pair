@@ -1,0 +1,49 @@
+After having installed NLTK and scikit-learn, you can import the script:
+
+>>> import amitools
+>>> c = amitools.getCorpus(observations=['ES2002a.csv'],root="")['ES2002a.csv']
+
+getCorpus takes a root directory and a list of files. By default, it searches for the directory "csv/" and opens every file therein.
+
+In this example we open the file ES2002a.csv in the current working directory.
+
+Maybe we are interested in the turn around the 270ths utterance in the corpus:
+
+>>> amitools.findTurn(c,270)
+(269, 273, 4)
+
+This says that the turn starts at index 269, that the first utterance of the following turn is at index 273, and that the turn has length 4.
+
+We can print out a range of utterances:
+
+>>> amitools.prettyPrint(c,269,273)
+269 - bck D: Yep .
+270 POS ass D: Yeah ,
+271 POS inf D: I'd say so ,
+272 POS ass D: yeah .
+
+The presence of POS indicates that 270, 271 and 272 are utterances that form second-parts of an adjacency pair indicating agreement. We can find the first-parts:
+
+>>> amitools.findTarget(c,270)
+268
+>>> amitools.findTarget(c,271)
+268
+>>> amitools.findTarget(c,272)
+268
+
+In this case, all three utterances have the same first-pair. We can find the turn it belongs to:
+
+>>> amitools.findTurn(c,268)
+(260, 269, 7)
+>>> amitools.prettyPrint(c,260,269)
+260 POS ass B: Yeah , yeah .
+261 UNC el.inf B: Like how much does , you know , a remote control cost .
+262 - bck D: Uh-huh .
+263 - inf B: Well twenty five Euro , I mean that's um that's about like eighteen pounds or something ,
+264 - el.inf B: isn't it ?
+265 - bck D: Mm-hmm .
+266 UNC ass B: Or no ,
+267 - el.inf B: is it as much as that ?
+268 - inf B: Sixteen seventeen eighteen pounds .
+
+Thus, the utterances 270, 271, 272 agree with "Sixteen seventeen eighteen pounds".
